@@ -7,12 +7,9 @@ cover = ""
 keywords = ["Nuno Adrego"]
 description = ""
 showFullContent = false
-draft = false
 +++
 
 Interested in cloud computing and software.
-
-Building [montanha](https://montanha.net) ⛰️
 
 - [Twitter](https://twitter.com/nunoadrego)
 - [LinkedIn](https://linkedin.com/in/nunoadrego)
