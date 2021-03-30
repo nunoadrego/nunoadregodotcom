@@ -9,7 +9,8 @@ description = ""
 showFullContent = false
 +++
 
-Interested in cloud computing and software.
+Interested in Cloud Computing and Software Engineering.
 
+- [Github](https://github.com/nunoadrego/)
 - [Twitter](https://twitter.com/nunoadrego)
 - [LinkedIn](https://linkedin.com/in/nunoadrego)
