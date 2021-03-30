@@ -8,6 +8,7 @@ tags = ["hugo", "netlify"]
 keywords = ["Hugo", "Netlify"]
 description = "Steps needed to run a website like this"
 showFullContent = false
+draft = true
 +++
 
 # Tools
