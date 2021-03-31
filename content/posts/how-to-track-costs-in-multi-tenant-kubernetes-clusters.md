@@ -34,7 +34,7 @@ After a few minutes, depending on the clusters' size, the container stops and yo
 
 Congratulations, you have generated the first snapshot of costs.
 
-## Deploying to the cluster
+## Deploying to a Cluster
 
 If you want to have reports available any time without needing to generate them manually, you can deploy Kubernetes Resource Report in a cluster.
 
@@ -74,7 +74,7 @@ If you want to ingest the actual costs instead of on-demand pricing, you will ne
 
 Furthermore, the cost per application only takes into account the cost of instances. It does not take into account data transfer nor storage attached to instances, for example.
 
-## Final remarks
+## Final Remarks
 
 Kubernetes Resource Report is a great tool to quickly get a sense of costs, by correlating the resource requests and the price of each node in the cluster.
 
