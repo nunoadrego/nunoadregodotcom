@@ -1,6 +1,6 @@
 +++
 title = "How to Generate Static Kubernetes Architecture Diagrams From State"
-date = ""
+date = "2021-05-19T00:00:00Z"
 author = "Nuno Adrego"
 authorTwitter = "nunoadrego" #do not include @
 cover = ""
