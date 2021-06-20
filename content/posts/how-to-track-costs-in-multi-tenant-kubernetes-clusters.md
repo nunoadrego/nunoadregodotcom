@@ -1,5 +1,5 @@
 +++
-title = "How To Track Costs In Multi-Tenant Kubernetes Clusters"
+title = "How to Track Costs in Multi-Tenant Kubernetes Clusters"
 date = "2021-03-14T17:00:00Z"
 author = "Nuno Adrego"
 authorTwitter = "nunoadrego" #do not include @
