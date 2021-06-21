@@ -17,13 +17,13 @@ One of the latest additions to the [HashiCorp](https://www.hashicorp.com/) line 
 
 [^1]: [Announcing HashiCorp Waypoint](https://www.hashicorp.com/blog/announcing-waypoint)
 
-One of the things that immediately caught my attention was the fact of it being a platform-agnostic solution. This means that whether you use Kubernetes, HashiCorp Nomad, Amazon ECS, Google Cloud Run, Azure Container Instances, Docker, and [more](https://www.waypointproject.io/plugins), you can use Waypoint to Build, Release and Deploy your applications. This is something I haven't seen in the wild, at least with mass adoption.
+One of the things that immediately caught my attention was the fact of being a platform-agnostic solution. This means that whether you use Kubernetes, HashiCorp Nomad, Amazon ECS, Google Cloud Run, Azure Container Instances, Docker, and [more](https://www.waypointproject.io/plugins), you can use Waypoint to Build, Deploy, and Release your applications. This is something I haven't seen around, at least with mass adoption.
 
 Since I've been involved in a team that works in an Internal Developer Platform, I couldn't resist taking a look and give Waypoint a try in a local environment.
 
 # Installation
 
-Depending on your Operating System, instructions differ. Take a look in the [official page](https://www.waypointproject.io/downloads).
+Depending on your Operating System, instructions differ. Take a look at the [official page](https://www.waypointproject.io/downloads).
 
 For macOS users this does the trick:
 
@@ -143,7 +143,7 @@ app "hello-waypoint" {
 }
 ```
 
-The `waypoint.hcl` file could be simplified. I added more parameters than needed for exploration purposes. In this case, since it is a new application, I chose the `kubernetes` plugin, but an additional one, [`kubernetes-apply`](https://www.waypointproject.io/plugins/kubernetes#kubernetes-apply-platform) is available if you already have Kubernetes resource files.
+The `waypoint.hcl` file could be simplified. I added more parameters than needed for exploration purposes. In this case, since it is a new application, I chose the `kubernetes` plugin, but an additional one, [`kubernetes-apply`](https://www.waypointproject.io/plugins/kubernetes#kubernetes-apply-platform), is available if you already have Kubernetes resource files.
 
 Moreover, note that I chose docker as a local registry for the container image. To have access to that image inside our minikube Kubernetes cluster, we will run a command that configures your environment to re-use minikube's Docker daemon.
 
@@ -177,7 +177,9 @@ With `waypoint logs`, we can see real-time application logs in the command line 
 
 ![Waypoint UI](/static_en/waypoint-logs.png)
 
-Regarding `waypoint exec`, it allows you to execute commands in the context of your application. For example, if the platform is Kubernetes, it allows you to drop a shell inside a container. Again, similar to the `kubectl exec` command. Let's print our `hello.go` file.
+Regarding `waypoint exec`, it allows you to execute commands in the context of your application. For example, if the platform is Kubernetes, it allows you to drop a shell inside a container. Again, similar to the `kubectl exec` command.
+
+Let's use it to print our `hello.go` file inside the container:
 
 ```bash
 waypoint exec bash
@@ -217,8 +219,8 @@ minikube delete
 
 Waypoint is an interesting project that might fulfill the needs of some organizations. The fact it abstracts the platform in which developers are deploying giving a consistent workflow is well played by HashiCorp.
 
-I would personally recommend it for startups giving its first steps towards an Internal Developer Platform. Nevertheless, don't forget that it is a super early stage project!
+I would personally recommend it for startups giving their first steps towards an Internal Developer Platform. Nevertheless, don't forget that it is a super early stage project!
 
-I didn't cover in the essay, but there is also a [GitOps feature launched in Waypoint 0.3](https://www.hashicorp.com/blog/announcing-hashicorp-waypoint-0-3-0). I wasn't able to replicate with my current local environment (due to the use of a local container registry), but I will explore more and bring news soon. 😄
+I didn't cover it in the essay, but there is also a [GitOps feature launched in Waypoint 0.3](https://www.hashicorp.com/blog/announcing-hashicorp-waypoint-0-3-0). I wasn't able to replicate with my current local environment (due to the use of a local container registry), but I will explore more and bring news soon. 😄
 
-I'm looking forward to seeing the evolution of Waypoint in the next releases as well as test it in more platforms.
+I'm looking forward to seeing the evolution of Waypoint in the next releases as well as test it on more platforms.
