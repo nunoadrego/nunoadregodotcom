@@ -167,6 +167,8 @@ And finally:
 waypoint up
 ```
 
+You should see a URL pointing to your application.
+
 The `waypoint up` command performs three steps. You can also run them one by one with `waypoint build`, `waypoint deploy`, and `waypoint release`.
 
 # Interesting Features
@@ -222,5 +224,7 @@ Waypoint is an interesting project that might fulfill the needs of some organiza
 I would personally recommend it for startups giving their first steps towards an Internal Developer Platform. Nevertheless, don't forget that it is a super early stage project!
 
 I didn't cover it in the essay, but there is also a [GitOps feature launched in Waypoint 0.3](https://www.hashicorp.com/blog/announcing-hashicorp-waypoint-0-3-0). I wasn't able to replicate with my current local environment (due to the use of a local container registry), but I will explore more and bring news soon. 😄
+
+Lastly, if you are curious to see how Waypoint would work with a given technology, take a look at the [waypoint-examples](https://github.com/hashicorp/waypoint-examples) git repository.
 
 I'm looking forward to seeing the evolution of Waypoint in the next releases as well as test it on more platforms.
