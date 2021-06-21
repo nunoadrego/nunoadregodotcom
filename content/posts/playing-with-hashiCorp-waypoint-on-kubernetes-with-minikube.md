@@ -1,6 +1,6 @@
 +++
 title = "Playing With Hashicorp Waypoint on Kubernetes With minikube"
-date = "2021-06-21T01:00:00Z"
+date = "2021-06-21T00:00:00Z"
 author = "Nuno Adrego"
 authorTwitter = "nunoadrego" #do not include @
 cover = ""
