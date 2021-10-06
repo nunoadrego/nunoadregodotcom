@@ -14,7 +14,7 @@ A couple of weeks ago, while surfing the [Cloud Native Computing Foundation](htt
 
 OPA consists of a general-purpose policy engine. The main goal is to make decisions based on Input, Policies (written in [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/)), and Data while decoupling the logic from the services' code.
 
-![OPA](/static_en/opa.png "Source: https://www.openpolicyagent.org/docs")
+![Open Policy Agent diagram](/static_en/opa.png "Source: https://www.openpolicyagent.org/docs")
 
 There are many [use-cases for OPA](https://www.openpolicyagent.org/docs/latest/ecosystem/). Since I've been investing in learning more about Kubernetes, I opted for a project that integrates OPA and Kubernetes - [Gatekeeper](https://open-policy-agent.github.io/gatekeeper/website/docs).
 
@@ -26,7 +26,7 @@ Some well-known admission controllers are [*ResourceQuota*](https://kubernetes.i
 
 There are, however, two special admission controllers: [MutatingAdmissionWebhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook) and [ValidatingAdmissionWebhook](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook). These controllers allow the [extension of Kubernetes API functionality via webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/). 
 
-![Admission Webhooks](/static_en/admission-webhooks.png "Source: https://banzaicloud.com/blog/k8s-admission-webhooks")
+![Kubernetes API request lifecycle](/static_en/admission-webhooks.png "Source: https://banzaicloud.com/blog/k8s-admission-webhooks")
 
 Admission Controllers can be classified as "mutating", "validating" or both. Mutating controllers may modify the objects they admit. Validating controllers return a binary response - yes or no - according to the object contents.
 
@@ -34,7 +34,7 @@ Admission Controllers can be classified as "mutating", "validating" or both. Mut
 
 Gatekeeper v3.0 allows the creation of policies based on Custom Resource Definitions (CRDs). It provides validating and mutating admission control through a customizable admission webhook.
 
-![Gatekeeper v3.0](/static_en/gatekeeper-v3.png "Source: https://kubernetes.io/blog/2019/08/06/opa-gatekeeper-policy-and-governance-for-kubernetes")
+![Gatekeeper v3.0 diagram](/static_en/gatekeeper-v3.png "Source: https://kubernetes.io/blog/2019/08/06/opa-gatekeeper-policy-and-governance-for-kubernetes")
 
 ## Hands-on Example
 
@@ -271,9 +271,9 @@ helm install gpm gatekeeper-policy-manager/chart --namespace gatekeeper-system -
 
 The result:
 
-![Constraint Templates](/static_en/gpm-constraint-templates.png)
+![Gatekeeper Policy Manager Constraint Templates](/static_en/gpm-constraint-templates.png)
 
-![Constraints](/static_en/gpm-constraints.png)
+![Gatekeeper Policy Manager Constraints](/static_en/gpm-constraints.png)
 
 ### Cleanup
 
