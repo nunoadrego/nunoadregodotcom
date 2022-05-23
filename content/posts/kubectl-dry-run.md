@@ -42,7 +42,7 @@ Fast forward to today, while watching the session *The Hitchhiker's Guide to Pod
 
 # none, client and server
 
-`--dry-run` support three values. The help states the following:
+`--dry-run` supports three values. The help states the following:
 
 ```
 --dry-run='none':
