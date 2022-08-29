@@ -1,5 +1,5 @@
 +++
-title = "Exploiting Pod Priority"
+title = "Abusing Pod Priority"
 date = "2022-08-27T17:00:00Z"
 author = "Nuno Adrego"
 authorTwitter = "nunoadrego" #do not include @
@@ -10,11 +10,11 @@ description = "Pod Priority from a malicious user standpoint"
 showFullContent = false
 +++
 
-![kubectl --dry-run=client](/static_en/pod-priority.jpg)
+![kubectl --dry-run=client](/static_en/pod-priority-abuse.jpg)
 
 Killer Coda is a well-known platform that hosts interactive environments for studying cloud native technologies. While doing their [CKA scenarios](https://killercoda.com/killer-shell-cka), I found an intriguing one called *Scheduling Priority*.
 
-Since I was not familiar with `PodPriority` or `PriorityClass` concepts at the time, I did the usual - searched for them in the Kubernetes docs.
+Since I was not familiar with *Pod Priority* or `PriorityClass` concepts at the time, I did the usual - searched for them in the Kubernetes docs.
 
 At the top of the [Pod Priority and Preemption](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) page, we can see a red warning:
 
@@ -28,7 +28,46 @@ At the top of the [Pod Priority and Preemption](https://kubernetes.io/docs/conce
 
 This message got my attention, and I wanted to see it in action.
 
-The following commands and configuration files are available in my [GitHub repository](https://github.com/nunoadrego/pod-priority).
+# Pod Priority
+
+The feature's name says it all: *Pod Priority* is a way to give more importance to some `Pods` than others. `PriorityClasses` manage the different levels of priority.
+
+A `PriorityClass` definition looks like this:
+```yaml
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+preemptionPolicy: PreemptLowerPriority
+value: 1000
+globalDefault: false
+description: This priority class should be used for X pods only.
+```
+
+To assign priority to a `Pod`, the `spec` of the `Pod` must contain the field `priorityClassName` with the correspondent `PriorityClass`, just as below:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: test
+  name: test
+spec:
+  containers:
+  - image: busybox
+    name: test
+  restartPolicy: Always
+  priorityClassName: high-priority
+```
+
+It's also possible to configure one `PriorityClass` with `globalDefault: true`. After that, all new `Pods` without an explicit `priorityClassName` will be mutated[^1] and receive the default priority of the cluster.
+
+[^1]: You can read more about [mutating admission controllers](https://nunoadrego.com/posts/opa-gatekeeper-in-the-admission-controllers-world/#kubernetes-admission-controllers) in a previous post.
+
+After this brief introduction, we are ready to move to the following hands-on sections! 🧪
+
+All commands and configuration files are available in my [GitHub repository](https://github.com/nunoadrego/pod-priority).
 
 # Spin up a cluster, explore and create a deployment
 
@@ -81,7 +120,7 @@ Allocated resources:
 # truncated
 ```
 
-For this scenario, we will create a *virtuous* deployment with 2 CPU cores as requests to simulate a well-behaved 👼 application:
+For this scenario, we will create a *virtuous* deployment with 2 CPU cores as requests to simulate a well-behaved 👼 application. Notice that we **don't assign** a `PriorityClass` to it:
 
 ```bash
 kubectl apply -f virtuous-deploy.yaml
@@ -116,7 +155,7 @@ spec:
             cpu: 2
 ```
 
-What about PriorityClasses?
+Speaking of which, do we have `PriorityClasses` in the cluster?
 
 ```bash
 kubectl get priorityclass
@@ -128,7 +167,7 @@ system-cluster-critical   2000000000   false            32s
 system-node-critical      2000001000   false            32s
 ```
 
-We have two PriorityClasses: `system-cluster-critical` and `system-node-critical`, with the latter being the one with the highest priority. Pods can have PriorityClasses specified. Let’s see if that's the case in our cluster:
+Yes, we do. Two PriorityClasses: `system-cluster-critical` and `system-node-critical`, with the latter being the one with the highest priority. Let’s see if we have `Pods` with `PriorityClasses` specified in our cluster:
 
 ```bash
 kubectl get pods --all-namespaces -o custom-columns=POD:.metadata.name,PRIORITY_CLASS:.spec.priorityClassName,PRIORITY:.spec.priority,CPU_REQUESTS:'.spec.containers[*].resources.requests.cpu'
@@ -146,7 +185,7 @@ kube-scheduler-minikube            system-node-critical      2000001000   100m
 storage-provisioner                <none>                    0            <none>
 ```
 
-We have two Pods without PriorityClass and two Pods without CPU requests. We also have one Pod with the lowest PriorityClass defined (`system-cluster-critical`). Since we didn’t specify a PriorityClass for the *virtuous* Pod, its priority is zero.
+We have two `Pods` without `PriorityClass` and two `Pods` without CPU requests. We also have one `Pod` with the lowest `PriorityClass` defined (`system-cluster-critical`). Since we didn’t specify a `PriorityClass` for the *virtuous* `Pod`, its priority is zero.
 
 # Attack
 
@@ -174,7 +213,7 @@ Allocated resources:
 #truncated
 ```
 
-Making the math (4-2.75), we only have 1.25 cores of CPU available to be requested... What happens if we request 3.3 cores of CPU? 🐒
+Making the math (4-2.75), we only have 1.25 cores of CPU available to be requested. What happens if we request 3.3 cores of CPU and use the highest `PriorityClass` in the cluster? 🐒
 
 ```yaml
 kubectl apply -f evil-deploy.yaml
@@ -229,11 +268,13 @@ kube-system   kube-scheduler-minikube            1/1     Running   0            
 kube-system   storage-provisioner                1/1     Running   1 (71s ago)   113s
 ```
 
-Both *virtuous* and *coredns* Pods terminated, and new ones are now pending! Evil Pod is running.
+Both *virtuous* and *coredns* `Pods` terminated, and new ones are now pending! Evil Pod is running.
 
-If you take a closer look, we can understand why. Our evil pod requests 3.3 cores of CPU and has the highest PodPriority specified (`system-node-critical`). Since the only node in the cluster has 1.25 cores of CPU available to be requested, there is a need to kill pods with lower priority. In this case, since *virtuous* pod and *coredns* were the ones with the lowest priority and with CPU requests specified, the Kubernetes scheduler preempted them.
+If you take a closer look, we can understand why. Our evil `Pod` requests 3.3 cores of CPU and has the highest *Pod Priority* specified (`system-node-critical`). Since the only node in the cluster has 1.25 cores of CPU available to be requested, there is a need to kill `Pods` with lower priority. In this case, since *virtuous* `Pod` and *coredns* were the ones with the lowest priority and with CPU requests specified, the Kubernetes scheduler preempted them.
 
-If the *evil* Pod didn't specify a PodPriority, it would be pending as a result of a failed schedule.
+If the *evil* `Pod` didn't specify a `PriorityClass`, it would be pending due to a failed schedule.
+
+We didn't highlight *Preemption* in the introduction section for drama purposes. `PriorityClasses` can state their `preemptionPolicy`, which by default is `PreemptLowerPriority`, but can also be `Never`. Both `PriorityClasses` shipped with Kubernetes clusters (`system-cluster-critical` and `system-node-critical`) have the policy `PreemptLowerPriority`.
 
 # Clean up
 
@@ -243,4 +284,4 @@ minikube delete
 
 # Conclusion
 
-Pod Priority can be useful for some use cases such as prioritizing critical applications, but definitely can catch us off guard if we don’t have the right guardrails in place. This post only illustrates the consequences of not having them.
+Pod Priority can be useful for some use cases such as prioritizing critical applications, but definitely can catch us off guard if we don’t have the right guardrails in place. This post illustrates potential consequences of not having them.
