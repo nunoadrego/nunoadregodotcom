@@ -26,7 +26,7 @@ I went by plane, but later I found that groups of attendees, when possible, go b
 
 The hotel was near the venue, and that was a big plus. There might be some queues to enter the venue and some sessions (like keynotes) have high attendance, so the sooner you are there, the better.
 
-# Rejkts
+# Rejekts
 
 [Cloud Native Rejekts](https://cloud-native.rejekts.io/) is a conference where rejected talks from KubeCon + CloudNativeCon receive a second chance to be presented. I knew about it, but I forgot to reserve in advance. As a result, tickets were not available when I tried just some days before. ☹️ Next time I will check it earlier.
 
