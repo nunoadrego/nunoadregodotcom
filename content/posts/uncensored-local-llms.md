@@ -4,7 +4,7 @@ date = "2024-08-24T00:00:00Z"
 author = "Nuno Adrego"
 authorTwitter = "nunoadrego" #do not include @
 cover = ""
-tags = ["llm", "AI"]
+tags = ["llm", "ai"]
 keywords = ["LLM", "AI"]
 description = "LLM says no"
 showFullContent = false
@@ -20,7 +20,7 @@ However, using them in a professional context can be challenging. It’s importa
 
 ## Local LLMs
 
-At the [latest Kubecon](https://nunoadrego.com/posts/embracing-kubecon-in-person), there was a significant amount of content focused on AI and LLMs. One company in particular, Ollama, was featured in a keynote and also had a booth that caught my attention.
+At the [latest Kubecon](https://nunoadrego.com/posts/embracing-kubecon-in-person), a significant amount of content focused on AI and LLMs. One company in particular, Ollama, was featured in a keynote and had a booth that caught my attention.
 
 With Ollama installed, you can run models locally. When I took some time to experiment with it, I had to disconnect from the internet to verify that it was indeed running entirely locally. 🤯 The performance exceeded my expectations! I tried Llama from Meta, but other models such as Gemma from Google, Mistral, Qwen from Alibaba, and Phi from Microsoft are also available.
 
@@ -34,7 +34,7 @@ ollama run llama3.1 "Hello! Who are you?" # run model with prompt
 
 ## Cooperation
 
-With the ability to run models locally, I wondered if I could leverage them to aid in tasks that I might face in my daily job.
+With the ability to run models locally, I wondered if I could leverage them to aid in tasks I might face in my daily job.
 
 I began by focusing on securing systems such as Kubernetes clusters. Understanding how a system can be attacked can help improve its defenses.
 
