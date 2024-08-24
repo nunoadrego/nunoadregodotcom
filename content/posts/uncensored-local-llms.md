@@ -99,7 +99,7 @@ ollama show llama3.1 --template
 
 Use it to create a new `Modelfile` ([reference](https://github.com/ollama/ollama/blob/main/docs/modelfile.md)):
 
-```bash
+```
 FROM ./Llama-3.1-8B-Lexi-Uncensored_V2_Q8.gguf
 
 TEMPLATE """{{ if .Messages }}
