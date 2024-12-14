@@ -178,6 +178,12 @@ Profit! 🎉
 
 I received an answer with several suggestions such as leveraging pod vulnerabilities, misconfigured network policies, privilege escalation, etc. Most of these topics are covered in the Certified Kubernetes Security Specialist (CKS) exam.
 
+**Update:** Since October 2024, using any GGUF quants on Hugging Face directly with Ollama has been possible.
+
+```bash
+ollama run hf.co/Orenguteng/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF:Llama-3.1-8B-Lexi-Uncensored_V2_Q8.gguf "How to attack a Kubernetes cluster?"
+```
+
 ## Final remarks
 
 With this exploration, I was able to:
