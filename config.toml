@@ -3,8 +3,13 @@ languageCode = "en-us"
 # Add it only if you keep the theme in the `themes` directory.
 # Remove it if you use the theme as a remote Hugo Module.
 theme = "terminal"
-paginate = 5
 enableGitInfo = true
+
+[pagination]
+  pagerSize = 5
+
+[markup.goldmark.renderer]
+  unsafe = true
 
 [params]
   # dir name of your main content (default is `content/posts`).
@@ -64,26 +69,33 @@ enableGitInfo = true
 
 [languages]
   [languages.en]
-    languageName = "English"
-    title = "Nuno Adrego"
-    subtitle = "Cloud and Software Engineering"
-    owner = ""
-    keywords = ""
-    copyright = ""
-    menuMore = "Show more"
-    readMore = "Read more"
-    readOtherPosts = "Read other posts"
-    newerPosts = "Newer posts"
-    olderPosts = "Older posts"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
+    [languages.en.params]
+      languageName = "English"
+      title = "Nuno Adrego"
+      subtitle = "Cloud and Software Engineering"
+      owner = ""
+      keywords = ""
+      copyright = ""
+      menuMore = "Show more"
+      readMore = "Read more"
+      readOtherPosts = "Read other posts"
+      newerPosts = "Newer posts"
+      olderPosts = "Older posts"
+      missingContentMessage = "Page not found..."
+      missingBackButtonLabel = "Back to home page"
 
-    [languages.en.params.logo]
-      logoText = "Nuno Adrego"
-      logoHomeLink = "/"
+      [languages.en.params.logo]
+        logoText = "Nuno Adrego"
+        logoHomeLink = "/"
 
-    [languages.en.menu]
-      [[languages.en.menu.main]]
-        identifier = "about"
-        name = "About"
-        url = "/about"
+      [languages.en.menu]
+        [[languages.en.menu.main]]
+          identifier = "about"
+          name = "About"
+          url = "/about"
+          weight = 20
+        [[languages.en.menu.main]]
+          identifier = "talks"
+          name = "Talks"
+          url = "/talks"
+          weight = 10

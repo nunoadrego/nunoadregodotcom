@@ -1,0 +1,34 @@
+{{ define "main" }}
+  {{ with .Content }}
+    <div class="index-content">
+      {{ . }}
+    </div>
+  {{ end }}
+  <div class="posts">
+    {{ range .Paginator.Pages }}
+      <article class="post on-list">
+        <h2 class="post-title">
+          {{ .Title | markdownify }}
+        </h2>
+
+        {{ if .Date }}
+        <p>📅 {{ .Date.Format "January 2, 2006" }}</p>
+        {{ end }}
+        {{ with .Params.event }}
+        <p>➡️ {{ . }}</p>
+        {{ end }}
+        {{ with .Params.location }}
+        <p>📍 {{ . }}</p>
+        {{ end }}
+        {{ with .Params.duration }}
+        <p>⏱️ {{ . }}</p>
+        {{ end }}
+        {{ with .Params.slides }}
+        <p>📑 <a href="{{ . }}" target="_blank">View Slides</a></p>
+        {{ end }}
+      </article>
+    {{ end }}
+
+    {{ partial "pagination.html" . }}
+  </div>
+{{ end }}
